@@ -1,10 +1,11 @@
 scalaVersion := "2.13.8"
-
+version := "0.0.1"
 organization := "nothing"
 
-libraryDependencies += "com.ibm.icu" % "icu4j" % "71.1"
+libraryDependencies ++= Seq(
+  "org.scalatest" %% "scalatest" % "3.2.12" % Test,
+  "com.ibm.icu" % "icu4j" % "71.1",
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
+)
 
 enablePlugins(JavaAppPackaging)
-enablePlugins(GraalVMNativeImagePlugin)
-
-

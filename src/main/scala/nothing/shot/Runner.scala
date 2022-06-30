@@ -1,24 +1,24 @@
-package nothing.timer
+package nothing.shot
 
 import scala.io.StdIn
 import scala.util.Try
+import scala.util.parsing.combinator.RegexParsers
 
 object Runner extends Handler {
 
-  val handlers: List[Handler] = EpochTimeHandler :: Nil
-  def main(args: Array[String]): Unit = {
+  val handlers: List[Handler] =
+    EpochTimeMillisHandler ::
+      EpochTimeSecHandler ::
+      DateTimeHandler :: Nil
 
-    // args.foreach(println)
+  def main(args: Array[String]): Unit = {
 
     val result = args.toList match {
       case "-i" :: Nil =>
         val input = StdIn.readLine()
-        // println("---" + input)
-        handle(input)
-      case "-p" :: input :: Nil =>
         handle(input)
       case _ =>
-        None
+        handle(args.mkString(" ").replace("  ", " "))
     }
 
     println(result.map(prettyPrint).getOrElse("Could not handle"))
@@ -37,24 +37,8 @@ object Runner extends Handler {
     val t = Timing.formatTime(in)
     val p = Timing.persianFormatDate(in)
     val e = Timing.englishFormatDate(in)
-    (in :: t :: p :: e :: Nil).map(_.toString).mkString("\n")
+    val d = Timing.diff(in)
+    (in :: t :: p :: e :: d :: Nil).map(_.toString).mkString("\n")
   }
 
-}
-
-trait Handler {
-  def handle(input: String): Option[Long]
-}
-
-object EpochTimeHandler extends Handler {
-  private val pattern = """^\D*(\d{13})\D*$""".r
-
-  override def handle(input: String): Option[Long] =
-    pattern.findFirstMatchIn(input) match {
-      case Some(value) =>
-        Try {
-          value.group(1).toLong
-        }.toOption
-      case _ => None
-    }
 }
