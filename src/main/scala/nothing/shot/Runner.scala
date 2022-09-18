@@ -14,6 +14,10 @@ object Runner extends Handler {
   def main(args: Array[String]): Unit = {
 
     val result = args.toList match {
+      case Nil =>
+        handle(System.currentTimeMillis().toString())
+      case "now" :: Nil =>
+        handle(System.currentTimeMillis().toString)
       case "-i" :: Nil =>
         val input = StdIn.readLine()
         handle(input)
@@ -34,11 +38,12 @@ object Runner extends Handler {
     }
 
   private def prettyPrint(in: Long): String = {
+    val code = "#MahsaAmini"
     val t = Timing.formatTime(in)
     val p = Timing.persianFormatDate(in)
     val e = Timing.englishFormatDate(in)
     val d = Timing.diff(in)
-    (in :: t :: p :: e :: d :: Nil).map(_.toString).mkString("\n")
+    (code :: in :: t :: p :: e :: d :: Nil).map(_.toString).mkString("\n")
   }
 
 }

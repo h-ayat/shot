@@ -94,7 +94,8 @@ object Timing {
             (message :: prev) -> (value % curr._2)
         }
     }
-
-    result._1.reverse.mkString(" ") + " " + suffix
+    if (result._1.nonEmpty) {
+      result._1.reverse.mkString(" ") + " " + suffix
+    } else ""
   }
 }
