@@ -26,7 +26,7 @@ object DateTimeHandler extends Handler {
 }
 
 object EpochTimeMillisHandler extends Handler {
-  private val pattern = """^\D*(\d{13})\D*$""".r
+  private val pattern = """^\D*(\d{11,13})\D*$""".r
 
   override def handle(input: String): Option[Long] =
     pattern.findFirstMatchIn(input) match {
@@ -39,7 +39,7 @@ object EpochTimeMillisHandler extends Handler {
 }
 
 object EpochTimeSecHandler extends Handler {
-  private val pattern = """^\D*(\d{10})\D*$""".r
+  private val pattern = """^\D*(\d{8,10})\D*$""".r
 
   override def handle(input: String): Option[Long] =
     pattern.findFirstMatchIn(input) match {
