@@ -38,12 +38,11 @@ object Runner extends Handler {
     }
 
   private def prettyPrint(in: Long): String = {
-    val code = "#MahsaAmini"
     val t = Timing.formatTime(in)
     val p = Timing.persianFormatDate(in)
     val e = Timing.englishFormatDate(in)
     val d = Timing.diff(in)
-    (code :: in :: t :: p :: e :: d :: Nil).map(_.toString).mkString("\n")
+    (in :: t :: p :: e :: d :: Nil).map(_.toString).mkString("\n")
   }
 
 }
