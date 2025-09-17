@@ -1,5 +1,5 @@
-scalaVersion := "2.13.8"
-version := "0.0.4"
+scalaVersion := "2.13.16"
+version := "0.0.5"
 organization := "nothing"
 
 libraryDependencies ++= Seq(
